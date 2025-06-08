@@ -34,17 +34,17 @@ export default function Contact() {
     {
       icon: <Phone className="h-5 w-5 text-gold-500" />,
       title: "Phone Number",
-      details: "(123) 456-7890",
+      details: "+92 3224188020",
     },
     {
       icon: <Mail className="h-5 w-5 text-gold-500" />,
       title: "Email Address",
-      details: "service@assemblyline.com",
+      details: "assemblyline15@gmail.com",
     },
     {
       icon: <Clock className="h-5 w-5 text-gold-500" />,
       title: "Working Hours",
-      details: "Mon-Fri: 8AM-6PM, Sat: 8AM-2PM",
+      details: "Mon-Sun: 9AM-9PM, Fri: Closed",
     },
   ];
 

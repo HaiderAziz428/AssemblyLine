@@ -1,5 +1,9 @@
 "use client";
-
+import heroPic from "../public/Hero.jpg"; // Assuming you have a hero image
+import AC from "../public/AC.jpg"; // Assuming you have an AC service image
+import Electrical from "../public/Electrical.jpg"; // Assuming you have an Electrical service image
+import Mechanical from "../public/mechanical.jpg"; // Assuming you have a Mechanical service image
+import OilChange from "../public/OilChange.jpg"; // Assuming you have an Oil Change service image
 import { useState } from "react";
 import { Zap, Settings, Wind, Droplet, ArrowRight } from "lucide-react";
 import {
@@ -18,6 +22,7 @@ export default function Services() {
   const services = [
     {
       title: "Electrical Services",
+      backPic: AC.src, // Fixed reference
       description:
         "Complete electrical diagnostics and repair for all vehicle systems including battery, alternator, and starter issues.",
       icon: <Zap className="h-12 w-12 text-gold-500" />,
@@ -25,6 +30,7 @@ export default function Services() {
     },
     {
       title: "Mechanical Repairs",
+      backPic: Mechanical.src, // Fixed reference
       description:
         "Expert mechanical repairs including engine diagnostics, brake service, suspension work, and transmission repair.",
       icon: <Settings className="h-12 w-12 text-gold-500" />,
@@ -32,6 +38,7 @@ export default function Services() {
     },
     {
       title: "AC Service & Repair",
+      backPic: AC.src, // Fixed reference
       description:
         "Full AC system diagnostics, repair, and recharge to keep you cool and comfortable all year round.",
       icon: <Wind className="h-12 w-12 text-gold-500" />,
@@ -48,9 +55,16 @@ export default function Services() {
 
   return (
     <section id="services" className="py-20 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-navy-900"></div>
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:30px_30px]"></div>
+      <div className="absolute inset-0 bg-black">
+        <div
+          className="absolute inset-0 bg-center bg-cover opacity-30"
+          style={{
+            backgroundImage: `url(${heroPic.src})`,
+            backgroundAttachment: "fixed",
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/80 via-navy-900/90 to-navy-900/80"></div>
+      </div>
 
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
@@ -69,18 +83,18 @@ export default function Services() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* 3D-like service display */}
-          <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl shadow-gold-500/10 order-2 lg:order-1">
-            <div className="absolute inset-0 bg-gradient-to-br from-navy-800 to-navy-900 z-0"></div>
-
+          <div className="relative md:h-[600px] h-[400px] rounded-2xl overflow-hidden shadow-2xl shadow-gold-500/10 order-2 lg:order-1">
             {/* Service background images with transition */}
             {services.map((service, index) => (
               <div
                 key={index}
                 className={cn(
                   "absolute inset-0 bg-cover bg-center transition-all duration-700",
-                  activeService === index ? "opacity-20" : "opacity-0"
+                  activeService === index ? "opacity-80" : "opacity-0"
                 )}
-                style={{ backgroundImage: `url(${service.bgImage})` }}
+                style={{
+                  backgroundImage: `url(${service.backPic})`,
+                }}
               ></div>
             ))}
 
@@ -93,7 +107,7 @@ export default function Services() {
             </div>
 
             {/* Decorative elements */}
-            <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-navy-900 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-1/2 "></div>
             <div className="absolute top-10 left-10 w-20 h-20 border border-gold-500/20 rounded-lg transform rotate-12"></div>
             <div className="absolute bottom-10 right-10 w-16 h-16 border border-gold-500/20 rounded-full"></div>
           </div>

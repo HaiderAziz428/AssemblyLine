@@ -1,23 +1,37 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { format } from "date-fns"
-import { CalendarIcon, CheckCircle } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { CalendarIcon, CheckCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function BookingForm() {
-  const [date, setDate] = useState<Date>()
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [date, setDate] = useState<Date>();
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -25,29 +39,121 @@ export default function BookingForm() {
     carMake: "",
     carModel: "",
     carYear: "",
-    service: "electrical",
+    services: [] as string[], // Changed to array for multiple services
     message: "",
     time: "",
-  })
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In a real application, you would send this data to WhatsApp or your backend
-    console.log("Form submitted:", { ...formData, date: date?.toISOString() })
-    setIsSubmitted(true)
-  }
+  const handleServiceChange = (service: string, checked: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      services: checked
+        ? [...prev.services, service]
+        : prev.services.filter((s) => s !== service),
+    }));
+  };
+
+  const sendToDiscord = async (bookingData: any) => {
+    const webhookUrl =
+      "https://discord.com/api/webhooks/1381395576247287909/ubzt8wBUdociAKDXtJ8oUqboEGBWHHGS35ildSelMY-M9V60Q_6HkrxaincmGd-0Q4yC";
+
+    const embed = {
+      title: "🚗 New Appointment Booking",
+      color: 0xffd700, // Gold color
+      fields: [
+        {
+          name: "👤 Customer Information",
+          value: `**Name:** ${bookingData.name}\n**Phone:** ${bookingData.phone}\n**Email:** ${bookingData.email}`,
+          inline: false,
+        },
+        {
+          name: "🚙 Vehicle Information",
+          value: `**Make:** ${bookingData.carMake}\n**Model:** ${bookingData.carModel}\n**Year:** ${bookingData.carYear}`,
+          inline: true,
+        },
+        {
+          name: "📅 Appointment Details",
+          value: `**Date:** ${bookingData.date}\n**Time:** ${bookingData.time}`,
+          inline: true,
+        },
+        {
+          name: "🔧 Services Requested",
+          value:
+            bookingData.services.length > 0
+              ? bookingData.services.join(", ")
+              : "None selected",
+          inline: false,
+        },
+      ],
+      timestamp: new Date().toISOString(),
+      footer: {
+        text: "Assembly Line Auto Repair - Booking System",
+      },
+    };
+
+    if (bookingData.message) {
+      embed.fields.push({
+        name: "💬 Additional Details",
+        value: bookingData.message,
+        inline: false,
+      });
+    }
+
+    try {
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          embeds: [embed],
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Discord webhook failed: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error sending to Discord:", error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const bookingData = {
+        ...formData,
+        date: date ? format(date, "PPP") : "Not selected",
+      };
+
+      // Send to Discord
+      await sendToDiscord(bookingData);
+
+      console.log("Form submitted:", bookingData);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("There was an error submitting your booking. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const timeSlots = [
-    "8:00 AM",
     "9:00 AM",
     "10:00 AM",
     "11:00 AM",
@@ -57,7 +163,17 @@ export default function BookingForm() {
     "3:00 PM",
     "4:00 PM",
     "5:00 PM",
-  ]
+    "6:00 PM",
+    "7:00 PM",
+    "8:00 PM",
+  ];
+
+  const serviceOptions = [
+    { id: "electrical", label: "Electrical" },
+    { id: "mechanical", label: "Mechanical" },
+    { id: "ac", label: "AC Service" },
+    { id: "oil", label: "Oil Change" },
+  ];
 
   if (isSubmitted) {
     return (
@@ -65,19 +181,36 @@ export default function BookingForm() {
         <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
           <CheckCircle className="h-8 w-8 text-green-500" />
         </div>
-        <h3 className="text-2xl font-bold text-white mb-2">Booking Confirmed!</h3>
+        <h3 className="text-2xl font-bold text-white mb-2">
+          Booking Confirmed!
+        </h3>
         <p className="text-zinc-400 mb-6">
-          Thank you for choosing Assembly Line Auto Repair. We'll contact you shortly to confirm your appointment.
+          Thank you for choosing Assembly Line Auto Repair. We'll contact you
+          shortly to confirm your appointment.
         </p>
         <Button
-          onClick={() => setIsSubmitted(false)}
+          onClick={() => {
+            setIsSubmitted(false);
+            setFormData({
+              name: "",
+              phone: "",
+              email: "",
+              carMake: "",
+              carModel: "",
+              carYear: "",
+              services: [],
+              message: "",
+              time: "",
+            });
+            setDate(undefined);
+          }}
           variant="outline"
           className="border-gold-500/50 text-gold-500 hover:bg-gold-500/10"
         >
           Book Another Service
         </Button>
       </div>
-    )
+    );
   }
 
   return (
@@ -140,7 +273,7 @@ export default function BookingForm() {
                   variant="outline"
                   className={cn(
                     "w-full justify-start text-left font-normal bg-navy-900/50 border-navy-700 hover:bg-navy-800/50 hover:border-gold-500/30",
-                    !date && "text-muted-foreground",
+                    !date && "text-muted-foreground"
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
@@ -154,9 +287,9 @@ export default function BookingForm() {
                   onSelect={setDate}
                   initialFocus
                   disabled={(date) => {
-                    const day = date.getDay()
+                    const day = date.getDay();
                     // Disable Sundays (0) and past dates
-                    return day === 0 || date < new Date()
+                    return day === 0 || date < new Date();
                   }}
                   className="bg-navy-800 text-white"
                 />
@@ -168,7 +301,9 @@ export default function BookingForm() {
             <Label htmlFor="time" className="text-zinc-300">
               Preferred Time
             </Label>
-            <Select onValueChange={(value) => handleSelectChange("time", value)}>
+            <Select
+              onValueChange={(value) => handleSelectChange("time", value)}
+            >
               <SelectTrigger className="bg-navy-900/50 border-navy-700 focus:border-gold-500/50 focus:ring-gold-500/20">
                 <SelectValue placeholder="Select time" />
               </SelectTrigger>
@@ -229,37 +364,26 @@ export default function BookingForm() {
         </div>
 
         <div className="space-y-2">
-          <Label className="text-zinc-300">Service Type</Label>
-          <RadioGroup
-            defaultValue="electrical"
-            onValueChange={(value) => handleSelectChange("service", value)}
-            className="grid grid-cols-2 gap-2"
-          >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="electrical" id="electrical" className="text-gold-500" />
-              <Label htmlFor="electrical" className="text-zinc-300">
-                Electrical
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="mechanical" id="mechanical" className="text-gold-500" />
-              <Label htmlFor="mechanical" className="text-zinc-300">
-                Mechanical
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="ac" id="ac" className="text-gold-500" />
-              <Label htmlFor="ac" className="text-zinc-300">
-                AC Service
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="oil" id="oil" className="text-gold-500" />
-              <Label htmlFor="oil" className="text-zinc-300">
-                Oil Change
-              </Label>
-            </div>
-          </RadioGroup>
+          <Label className="text-zinc-300">
+            Service Type (Select all that apply)
+          </Label>
+          <div className="grid grid-cols-2 gap-4">
+            {serviceOptions.map((service) => (
+              <div key={service.id} className="flex items-center space-x-2">
+                <Checkbox
+                  id={service.id}
+                  checked={formData.services.includes(service.id)}
+                  onCheckedChange={(checked) =>
+                    handleServiceChange(service.id, checked as boolean)
+                  }
+                  className="border-gold-500/50 data-[state=checked]:bg-gold-500 data-[state=checked]:border-gold-500"
+                />
+                <Label htmlFor={service.id} className="text-zinc-300">
+                  {service.label}
+                </Label>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -281,15 +405,23 @@ export default function BookingForm() {
         <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-gold-600 rounded-lg blur-sm opacity-70"></div>
         <Button
           type="submit"
-          className="relative w-full bg-navy-900 hover:bg-navy-800 text-gold-500 border border-gold-500/30 font-bold"
+          disabled={isSubmitting || formData.services.length === 0}
+          className="relative w-full bg-navy-900 hover:bg-navy-800 text-gold-500 border border-gold-500/30 font-bold disabled:opacity-50"
         >
-          Book Appointment
+          {isSubmitting ? "Booking..." : "Book Appointment"}
         </Button>
       </div>
 
+      {formData.services.length === 0 && (
+        <p className="text-xs text-red-400 text-center">
+          Please select at least one service type.
+        </p>
+      )}
+
       <p className="text-xs text-zinc-500 text-center">
-        By submitting this form, you agree to our terms and conditions and privacy policy.
+        By submitting this form, you agree to our terms and conditions and
+        privacy policy.
       </p>
     </form>
-  )
+  );
 }

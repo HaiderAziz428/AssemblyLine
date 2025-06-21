@@ -4,13 +4,34 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Wrench, Settings, ChevronDown } from "lucide-react";
 import assemblyLine from "../public/AssemblyLine.jpg";
-
+import heroPic2 from "../public/HeroForMobile.jpg";
 import heroPic from "../public/Hero1.jpg"; // Assuming you have a hero image
+import heroPic3 from "../public/HeroForSmallMobile.jpg";
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bgImage, setBgImage] = useState(heroPic);
 
   useEffect(() => {
     setIsLoaded(true);
+    // Set up media queries for 422px and 558px width
+    const mqlSmall = window.matchMedia("(max-width: 422px)");
+    const mqlMobile = window.matchMedia("(max-width: 558px)");
+    const updateBg = () => {
+      if (mqlSmall.matches) {
+        setBgImage(heroPic3);
+      } else if (mqlMobile.matches) {
+        setBgImage(heroPic2);
+      } else {
+        setBgImage(heroPic);
+      }
+    };
+    updateBg();
+    mqlSmall.addEventListener("change", updateBg);
+    mqlMobile.addEventListener("change", updateBg);
+    return () => {
+      mqlSmall.removeEventListener("change", updateBg);
+      mqlMobile.removeEventListener("change", updateBg);
+    };
   }, []);
 
   return (
@@ -18,7 +39,7 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-no-repeat bg-center bg-cover "
       style={{
-        backgroundImage: `url(${heroPic.src})`,
+        backgroundImage: `url(${bgImage.src})`,
       }}
     >
       {/* 3D-like background elements */}

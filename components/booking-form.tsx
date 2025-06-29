@@ -74,6 +74,8 @@ export default function BookingForm() {
         date: date ? format(date, "PPP") : "Not selected",
       };
 
+      console.log("Submitting booking data:", bookingData);
+
       // Send to API route
       const response = await fetch("/api/booking", {
         method: "POST",
@@ -83,15 +85,27 @@ export default function BookingForm() {
         body: JSON.stringify(bookingData),
       });
 
+      console.log("API response status:", response.status);
+
       if (!response.ok) {
-        throw new Error("Failed to submit booking");
+        const errorData = await response.json().catch(() => ({}));
+        console.error("API error:", errorData);
+        throw new Error(
+          errorData.error || `HTTP ${response.status}: ${response.statusText}`
+        );
       }
 
+      const result = await response.json();
+      console.log("API success:", result);
       console.log("Form submitted:", bookingData);
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("There was an error submitting your booking. Please try again.");
+      alert(
+        `There was an error submitting your booking: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }. Please try again.`
+      );
     } finally {
       setIsSubmitting(false);
     }

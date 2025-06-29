@@ -4,7 +4,11 @@ const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
 export async function POST(request: NextRequest) {
   try {
+    console.log("API route called");
+    console.log("DISCORD_WEBHOOK_URL exists:", !!DISCORD_WEBHOOK_URL);
+
     const bookingData = await request.json();
+    console.log("Booking data received:", bookingData);
 
     if (!DISCORD_WEBHOOK_URL) {
       console.error("Discord webhook URL not configured");
@@ -56,6 +60,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    console.log("Sending to Discord webhook...");
     const response = await fetch(DISCORD_WEBHOOK_URL, {
       method: "POST",
       headers: {
@@ -66,10 +71,14 @@ export async function POST(request: NextRequest) {
       }),
     });
 
+    console.log("Discord response status:", response.status);
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Discord webhook error:", errorText);
       throw new Error(`Discord webhook failed: ${response.status}`);
     }
 
+    console.log("Successfully sent to Discord");
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error processing booking:", error);

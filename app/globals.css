@@ -92,3 +92,22 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Responsive hero background images */
+.hero-section {
+  min-height: 100vh;
+  background-image: url("/Hero1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media (max-width: 558px) {
+  .hero-section {
+    background-image: url("/HeroForMobile.jpg");
+  }
+}
+@media (max-width: 422px) {
+  .hero-section {
+    background-image: url("/HeroForSmallMobile.jpg");
+  }
+}

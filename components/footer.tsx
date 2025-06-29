@@ -1,4 +1,5 @@
 import { MapPin, Settings, Wrench } from "lucide-react";
+import GoogleMap from "./GoogleMap";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

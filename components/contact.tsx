@@ -1,5 +1,5 @@
 "use client";
-
+import GoogleMap from "./GoogleMap";
 import { useEffect, useState } from "react";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import BookingForm from "./booking-form";
@@ -104,29 +104,22 @@ export default function Contact() {
             </div>
 
             {/* 3D workshop illustration */}
-            <div className="relative h-[650px] rounded-lg overflow-hidden">
-              <div className="absolute inset-0 bg-navy-800/50 backdrop-blur-sm border border-navy-700 rounded-lg">
-                <div className="absolute inset-0 bg-center bg-contain bg-no-repeat opacity-30">
-                  <img src={assemblyLine.src} alt="Assembly Line Workshop" />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t "></div>
-              </div>
 
-              {/* 3D elements */}
-              <div className="absolute bottom-6 left-0 right-0 text-center">
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Visit Our Workshop
-                </h3>
-                <p className="text-zinc-400">
-                  Experience our state-of-the-art facility
-                </p>
-              </div>
+            <GoogleMap />
+            {/* 3D elements */}
+            <div className="absolute  left-0 right-0 text-center ">
+              <h3 className="text-xl font-bold text-white ">
+                Visit Our Workshop
+              </h3>
+              <p className="text-zinc-400 ">
+                Experience our state-of-the-art facility
+              </p>
             </div>
           </div>
 
           <div
             className={cn(
-              "transition-all duration-1000 delay-300 transform",
+              "transition-all duration-1000 delay-300 transform mt-10",
               isVisible
                 ? "translate-y-0 opacity-100"
                 : "translate-y-10 opacity-0"

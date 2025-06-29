@@ -31,6 +31,8 @@ export default function BookingForm() {
   const [date, setDate] = useState<Date>();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [showServiceError, setShowServiceError] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -67,6 +69,15 @@ export default function BookingForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Show error only if no service is selected
+    if (formData.services.length === 0) {
+      setShowServiceError(true);
+      setIsSubmitting(false);
+      return;
+    } else {
+      setShowServiceError(false);
+    }
 
     try {
       const bookingData = {
@@ -225,7 +236,7 @@ export default function BookingForm() {
 
           <div className="space-y-2">
             <Label className="text-zinc-300">Preferred Date</Label>
-            <Popover>
+            <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
@@ -233,6 +244,7 @@ export default function BookingForm() {
                     "w-full justify-start text-left font-normal bg-navy-900/50 border-navy-700 hover:bg-navy-800/50 hover:border-gold-500/30",
                     !date && "text-muted-foreground"
                   )}
+                  onClick={() => setPopoverOpen(true)}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {date ? format(date, "PPP") : <span>Select date</span>}
@@ -242,12 +254,17 @@ export default function BookingForm() {
                 <Calendar
                   mode="single"
                   selected={date}
-                  onSelect={setDate}
+                  onSelect={(selectedDate) => {
+                    if (selectedDate) {
+                      setDate(selectedDate);
+                      setPopoverOpen(false);
+                    }
+                  }}
                   initialFocus
                   disabled={(date) => {
                     const day = date.getDay();
-                    // Disable Sundays (0) and past dates
-                    return day === 0 || date < new Date();
+                    // Disable Fridays (5) and past dates
+                    return day === 5 || date < new Date();
                   }}
                   className="bg-navy-800 text-white"
                 />
@@ -370,7 +387,7 @@ export default function BookingForm() {
         </Button>
       </div>
 
-      {formData.services.length === 0 && (
+      {showServiceError && (
         <p className="text-xs text-red-400 text-center">
           Please select at least one service type.
         </p>

@@ -3,12 +3,13 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Assembly Line Auto Repair",
-    template: "%s | Assembly Line Auto Repair",
+    default: "Assembly Line Workshop | Multan's Trusted Car Service & Workshop",
+    template: "%s | Assembly Line Workshop",
   },
   description:
-    "Assembly Line Auto Repair offers expert mechanical, electrical, AC, and oil change services in Multan. Book your car service online with certified technicians and state-of-the-art diagnostics.",
+    "Get expert car repair, AC service, oil change, and diagnostics in Multan. Certified technicians, genuine parts, and transparent pricing. Book your service online today!",
   keywords: [
+    "Assembly Line",
     "auto repair",
     "car service",
     "mechanic",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     "AC service",
     "electrical repair",
     "mechanical repair",
-    "Assembly Line",
+    "Assembly Line Workshop",
     "car workshop",
     "brake service",
     "suspension",
@@ -40,24 +41,24 @@ export const metadata: Metadata = {
     "state-of-the-art equipment",
     "auto repair Pakistan",
   ],
-  authors: [{ name: "Assembly Line Auto Repair" }],
-  creator: "Assembly Line Auto Repair",
+  authors: [{ name: "Assembly Line Workshop" }],
+  creator: "Assembly Line Workshop",
   generator: "v0.dev",
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "Assembly Line Auto Repair",
+    title: "Assembly Line Workshop | Multan's Trusted Car Service & Workshop",
     description:
-      "Assembly Line Auto Repair offers expert mechanical, electrical, AC, and oil change services in Multan. Book your car service online with certified technicians and state-of-the-art diagnostics.",
+      "Get expert car repair, AC service, oil change, and diagnostics in Multan. Certified technicians, genuine parts, and transparent pricing. Book your service online today!",
     url: "https://www.assemblylineworkshop.com",
-    siteName: "Assembly Line Auto Repair",
+    siteName: "Assembly Line Workshop",
     images: [
       {
         url: "/AssemblyLine.jpg",
         width: 1200,
         height: 630,
-        alt: "Assembly Line Auto Repair Workshop",
+        alt: "Assembly Line Workshop",
       },
     ],
     locale: "en_US",
@@ -65,9 +66,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Assembly Line Auto Repair",
+    title: "Assembly Line Workshop | Multan's Trusted Car Service & Workshop",
     description:
-      "Assembly Line Auto Repair offers expert mechanical, electrical, AC, and oil change services in Multan. Book your car service online with certified technicians and state-of-the-art diagnostics.",
+      "Get expert car repair, AC service, oil change, and diagnostics in Multan. Certified technicians, genuine parts, and transparent pricing. Book your service online today!",
     images: ["/AssemblyLine.jpg"],
     creator: "@assemblylineworkshop",
   },
@@ -95,11 +96,11 @@ export default function RootLayout({
   const businessJsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
-    name: "Assembly Line Auto Repair",
+    name: "Assembly Line Workshop",
     url: "https://www.assemblylineworkshop.com",
     image: "https://www.assemblylineworkshop.com/AssemblyLine.jpg",
     description:
-      "Assembly Line Auto Repair offers expert mechanical, electrical, AC, and oil change services in Multan. Book your car service online with certified technicians and state-of-the-art diagnostics.",
+      "Assembly Line Workshop offers expert mechanical, electrical, AC, and oil change services in Multan. Book your car service online with certified technicians and state-of-the-art diagnostics.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Assembly line 5 marla scheme MPS road",

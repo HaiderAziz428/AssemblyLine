@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SEO from "@/components/SEO";
 
 export const metadata: Metadata = {
   title: {
@@ -93,12 +92,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const businessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AutoRepair",
+    name: "Assembly Line Auto Repair",
+    url: "https://www.assemblylineworkshop.com",
+    image: "https://www.assemblylineworkshop.com/AssemblyLine.jpg",
+    description:
+      "Assembly Line Auto Repair offers expert mechanical, electrical, AC, and oil change services in Multan. Book your car service online with certified technicians and state-of-the-art diagnostics.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Assembly line 5 marla scheme MPS road",
+      addressLocality: "Multan",
+      addressCountry: "PK",
+    },
+    telephone: "+92 3224188020",
+    sameAs: [
+      "https://www.facebook.com/assemblylineworkshop/",
+      "https://www.instagram.com/assemblyline.workshop/",
+      "https://www.tiktok.com/@assemblyline_",
+    ],
+  };
+
   return (
     <html lang="en">
-      <body>
-        <SEO />
-        {children}
-      </body>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }}
+        />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

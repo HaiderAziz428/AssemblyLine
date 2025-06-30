@@ -4,7 +4,6 @@ import AC from "../public/AC.jpg"; // Assuming you have an AC service image
 import Electrical from "../public/Electrical.jpg"; // Assuming you have an Electrical service image
 import Mechanical from "../public/mechanical.jpg"; // Assuming you have a Mechanical service image
 import OilChange from "../public/OilChange.jpg"; // Assuming you have an Oil Change service image
-import { useState } from "react";
 import { Zap, Settings, Wind, Droplet, ArrowRight } from "lucide-react";
 import {
   Card,
@@ -17,40 +16,40 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function Services() {
-  const [activeService, setActiveService] = useState(0);
-
   const services = [
     {
       title: "Electrical Services",
-      backPic: AC.src, // Fixed reference
       description:
         "Complete electrical diagnostics and repair for all vehicle systems including battery, alternator, and starter issues.",
       icon: <Zap className="h-12 w-12 text-gold-500" />,
-      bgImage: "/placeholder.svg?height=300&width=400",
     },
     {
       title: "Mechanical Repairs",
-      backPic: Mechanical.src, // Fixed reference
       description:
         "Expert mechanical repairs including engine diagnostics, brake service, suspension work, and transmission repair.",
       icon: <Settings className="h-12 w-12 text-gold-500" />,
-      bgImage: "/placeholder.svg?height=300&width=400",
     },
     {
       title: "AC Service & Repair",
-      backPic: AC.src, // Fixed reference
       description:
         "Full AC system diagnostics, repair, and recharge to keep you cool and comfortable all year round.",
       icon: <Wind className="h-12 w-12 text-gold-500" />,
-      bgImage: "/placeholder.svg?height=300&width=400",
     },
     {
       title: "Oil Change Service",
       description:
         "Professional oil change service using premium quality oils and filters to extend your engine's life.",
       icon: <Droplet className="h-12 w-12 text-gold-500" />,
-      bgImage: "/placeholder.svg?height=300&width=400",
     },
+  ];
+
+  // Placeholder gallery items (replace with your uploads)
+  const gallery = [
+    { type: "image", src: AC.src, alt: "AC Service" },
+    { type: "image", src: Mechanical.src, alt: "Mechanical Repair" },
+    { type: "image", src: Electrical.src, alt: "Electrical Service" },
+    { type: "image", src: OilChange.src, alt: "Oil Change" },
+    { type: "video", src: "/sample-video.mp4", alt: "Workshop Video" }, // Replace with your video
   ];
 
   return (
@@ -82,46 +81,39 @@ export default function Services() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* 3D-like service display */}
-          <div className="relative md:h-[600px] h-[400px] rounded-2xl overflow-hidden shadow-2xl shadow-gold-500/10 order-2 lg:order-1">
-            {/* Service background images with transition */}
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "absolute inset-0 bg-cover bg-center transition-all duration-700",
-                  activeService === index ? "opacity-80" : "opacity-0"
-                )}
-                style={{
-                  backgroundImage: `url(${service.backPic})`,
-                }}
-              ></div>
-            ))}
-
-            {/* Service icon with 3D effect */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="relative">
-                <div className="absolute -inset-10 bg-gold-500 rounded-full opacity-20 blur-2xl animate-pulse"></div>
-                {services[activeService].icon}
-              </div>
+          {/* Swipeable gallery for images/videos */}
+          <div className="order-2 lg:order-1">
+            <div className="flex gap-4 overflow-x-auto pb-4">
+              {gallery.map((item, idx) =>
+                item.type === "image" ? (
+                  <img
+                    key={idx}
+                    src={item.src}
+                    alt={item.alt}
+                    className="h-72 w-auto rounded-xl border border-gold-500 shadow-lg object-cover flex-shrink-0"
+                  />
+                ) : (
+                  <video
+                    key={idx}
+                    src={item.src}
+                    controls
+                    className="h-72 w-auto rounded-xl border border-gold-500 shadow-lg object-cover flex-shrink-0"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                )
+              )}
             </div>
-
-            {/* Decorative elements */}
-            <div className="absolute bottom-0 left-0 right-0 h-1/2 "></div>
-            <div className="absolute top-10 left-10 w-20 h-20 border border-gold-500/20 rounded-lg transform rotate-12"></div>
-            <div className="absolute bottom-10 right-10 w-16 h-16 border border-gold-500/20 rounded-full"></div>
           </div>
 
-          {/* Service selection */}
+          {/* Service selection (no click logic) */}
           <div className="space-y-6 order-1 lg:order-2">
             {services.map((service, index) => (
               <Card
                 key={index}
                 className={cn(
-                  "bg-navy-800/50 backdrop-blur-sm border-navy-700 hover:border-gold-500/50 transition-all duration-300 cursor-pointer",
-                  activeService === index && "border-l-4 border-l-gold-500"
+                  "bg-navy-800/50 backdrop-blur-sm border-navy-700 hover:border-gold-500/50 transition-all duration-300 cursor-pointer"
                 )}
-                onClick={() => setActiveService(index)}
               >
                 <CardHeader className="pb-2">
                   <CardTitle className="text-xl text-white flex items-center">

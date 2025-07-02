@@ -66,6 +66,30 @@ export const metadata: Metadata = {
     "best mechanic Multan",
     "car service booking online",
     "Assembly Line auto repair",
+
+    // AC Service keywords
+    "AC service Multan",
+    "auto AC recharge",
+    "car air conditioning",
+    "vehicle AC maintenance",
+    "best AC service Multan",
+    "car cooling repair",
+
+    // Electrical Repair keywords
+    "electrical repair Multan",
+    "car electrical service",
+    "auto electrical diagnostics",
+    "battery replacement",
+    "alternator repair",
+    "starter repair",
+    "wiring issues",
+
+    // Mechanical Repair keywords
+    "mechanical repair Multan",
+    "auto diagnostics",
+    "car workshop Multan",
+    "vehicle repair Multan",
+    // Avoiding duplicates for: Assembly Line Auto Repair, auto workshop Multan, engine repair, brake service, suspension repair
   ],
   authors: [{ name: "Assembly Line Car Workshop" }],
   creator: "Assembly Line Car Workshop - Multan's Premier Car Service Center",
@@ -91,13 +115,13 @@ export const metadata: Metadata = {
     siteName: "Assembly Line Car Workshop",
     images: [
       {
-        url: "/AssemblyLine.jpg",
+        url: "https://www.assemblylineworkshop.com/AssemblyLine.jpg",
         width: 1200,
         height: 630,
         alt: "Assembly Line Car Workshop - Best Car Repair Service in Multan",
       },
       {
-        url: "/workshop-exterior.jpg", // Add more images if available
+        url: "https://www.assemblylineworkshop.com/workshop-exterior.jpg", // Add more images if available
         width: 800,
         height: 600,
         alt: "Assembly Line Car Workshop Exterior - Modern Car Service Center Multan",
@@ -115,7 +139,7 @@ export const metadata: Metadata = {
       "Assembly Line Car Workshop Multan | Best Car Repair & Oil Change Service",
     description:
       "Multan's #1 car repair shop! Expert oil change, AC service, brake repair. Certified mechanics, genuine parts, same-day service. Book online now!",
-    images: ["/AssemblyLine.jpg"],
+    images: ["https://www.assemblylineworkshop.com/AssemblyLine.jpg"],
     creator: "@assemblylineworkshop",
     site: "@assemblylineworkshop",
   },

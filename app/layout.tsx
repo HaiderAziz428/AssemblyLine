@@ -99,12 +99,12 @@ export const metadata: Metadata = {
   referrer: "origin-when-cross-origin",
   icons: {
     icon: [
-      { url: "/browserTab.png", sizes: "16x16", type: "image/png" },
-      { url: "/browserTab.png", sizes: "32x32", type: "image/png" },
-      { url: "/browserTab.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon.svg", sizes: "16x16", type: "image/svg+xml" },
+      { url: "/favicon.svg", sizes: "32x32", type: "image/svg+xml" },
+      { url: "/favicon.svg", sizes: "48x48", type: "image/svg+xml" },
     ],
-    apple: "/browserTab.png",
-    shortcut: "/browserTab.png",
+    apple: "/favicon.svg",
+    shortcut: "/favicon.svg",
   },
   openGraph: {
     title:
@@ -404,22 +404,22 @@ export default function RootLayout({
         />
 
         {/* Favicon and touch icons */}
-        <link rel="apple-touch-icon" sizes="180x180" href="/browserTab.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
         <link
           rel="icon"
-          href="/browserTab.png"
-          type="image/png"
+          href="/favicon.svg"
+          type="image/svg+xml"
           sizes="32x32"
         />
         <link
           rel="icon"
-          href="/browserTab.png"
-          type="image/png"
+          href="/favicon.svg"
+          type="image/svg+xml"
           sizes="16x16"
         />
-        <link rel="shortcut icon" href="/browserTab.png" />
+        <link rel="shortcut icon" href="/favicon.svg" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="msapplication-TileImage" content="/browserTab.png" />
+        <meta name="msapplication-TileImage" content="/favicon.svg" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="theme-color" content="#ffffff" />
 

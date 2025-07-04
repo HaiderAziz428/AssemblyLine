@@ -91,10 +91,12 @@ export default function About() {
               ABOUT <span className="text-gold-500">ASSEMBLY LINE</span>
             </h2>
             <p className="text-zinc-400 mb-6">
-              Since 2025, Assembly Line Auto Repair has been at the forefront of
+              Assembly Line Auto Repair is a leading car workshop in Multan,
+              offering expert car repair, maintenance, and diagnostics for all
+              makes and models. Since 2025, we have been at the forefront of
               automotive repair technology. We combine traditional expertise
               with cutting-edge diagnostic equipment to deliver unparalleled
-              service.
+              service in Multan.
             </p>
             <p className="text-zinc-400 mb-8">
               Our workshop is equipped with the computerized diagnostics, and

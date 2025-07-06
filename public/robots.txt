@@ -1,9 +1,33 @@
-# *
+# Optimized robots.txt for Assembly Line Workshop
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /404
+Disallow: /500
 
-# Host
+# Block AI crawlers (optional - uncomment if desired)
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ChatGPT-User
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /
+
+# Allow important bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Crawl delay (optional - use if server load is high)
+# Crawl-delay: 1
+
+# Site URL
 Host: https://www.assemblylineworkshop.com
 
-# Sitemaps
+# Sitemap locations
 Sitemap: https://www.assemblylineworkshop.com/sitemap.xml

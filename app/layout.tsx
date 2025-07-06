@@ -499,6 +499,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-QEDBPLG4W6"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-QEDBPLG4W6');
+          `,
+          }}
+        />
         {/* Enhanced meta tags for better local SEO */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

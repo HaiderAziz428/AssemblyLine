@@ -42,6 +42,8 @@ export default function Hero() {
         <img
           src="/Car.webp"
           alt="Blue car representing Assembly Line Auto Repair"
+          fetchPriority="high"
+          {...{ fetchpriority: "high" }}
           className="absolute top-1/2 left-1/2 w-[150vw] max-w-none sm:w-[120vw] md:w-[100vw] md:max-w-6xl -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none select-none"
         />
       </div>

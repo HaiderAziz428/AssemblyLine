@@ -95,7 +95,7 @@ body {
 /* Hero section with background and foreground images */
 .hero-section {
   min-height: 100vh;
-  background-image: url("../public/backGround.png");
+  background-image: url("../public/backGround.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -105,58 +105,15 @@ body {
   justify-content: center;
 }
 
-/* Foreground car image */
-.hero-section::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 110%; /* Adjust size as needed */
-  height: 90%; /* Adjust size as needed */
-  background-image: url("../public/Car.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 1;
-}
-
-/* Alternative method using a separate div for the car */
-.hero-car {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 110%; /* Adjust size as needed */
-  height: 90%; /* Adjust size as needed */
-  background-image: url("../public/Car.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 1;
-}
-
 /* Responsive adjustments */
 @media (max-width: 558px) {
   .hero-section {
-    background-image: url("../public/backGround.png");
-  }
-
-  .hero-section::before,
-  .hero-car {
-    width: 160%; /* Larger on mobile */
-    height: 115%;
+    background-image: url("../public/backGround.webp");
   }
 }
 
 @media (max-width: 422px) {
   .hero-section {
-    background-image: url("../public/backGround.png");
-  }
-
-  .hero-section::before,
-  .hero-car {
-    width: 170%; /* Even larger on smaller screens */
-    height: 120%;
+    background-image: url("../public/backGround.webp");
   }
 }

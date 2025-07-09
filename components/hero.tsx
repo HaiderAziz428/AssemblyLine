@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Wrench, Settings, ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -15,6 +16,7 @@ export default function Hero() {
     <section
       id="home"
       className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-no-repeat bg-center bg-cover "
+      style={{ backgroundImage: 'url("/backGround.webp")' }}
     >
       {/* 3D-like background elements */}
       <div className="absolute inset-0 overflow-hidden z-0">
@@ -36,6 +38,12 @@ export default function Hero() {
         >
           <Wrench className="w-full h-full text-gold-500 animate-pulse " />
         </div>
+        {/* Car image for LCP - centered in hero section */}
+        <img
+          src="/Car.webp"
+          alt="Blue car representing Assembly Line Auto Repair"
+          className="absolute top-1/2 left-1/2 w-[150vw] max-w-none sm:w-[120vw] md:w-[100vw] md:max-w-6xl -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none select-none"
+        />
       </div>
 
       {/* Grid overlay */}

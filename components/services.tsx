@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useRef, useState, useEffect } from "react";
+import Head from "next/head";
 
 export default function Services() {
   const services = [
@@ -132,6 +133,28 @@ export default function Services() {
     },
   ];
 
+  // Generate VideoObject JSON-LD for each video
+  const videoJsonLd = gallery
+    .filter((item) => item.type === "video")
+    .map((item) => ({
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      name: item.alt,
+      description: item.alt,
+      thumbnailUrl: item.poster ? `${item.poster}` : undefined,
+      uploadDate: "2024-01-01", // You can update this if you know the real upload date
+      contentUrl: item.src,
+      embedUrl: item.src,
+      publisher: {
+        "@type": "Organization",
+        name: "Assembly Line Car Workshop",
+        logo: {
+          "@type": "ImageObject",
+          url: "/AssemblyLine.jpg",
+        },
+      },
+    }));
+
   const galleryRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -154,6 +177,14 @@ export default function Services() {
 
   return (
     <>
+      {/* Inject VideoObject structured data for each video */}
+      {videoJsonLd.map((json, idx) => (
+        <script
+          key={idx}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
+        />
+      ))}
       <section id="services" className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-black">
           <div

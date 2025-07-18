@@ -31,3 +31,4 @@ Host: https://www.assemblylineworkshop.com
 
 # Sitemap locations
 Sitemap: https://www.assemblylineworkshop.com/sitemap.xml
+Sitemap: https://www.assemblylineworkshop.com/video-sitemap.xml

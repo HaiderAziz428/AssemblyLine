@@ -19,6 +19,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)"],
+        oswald: ["var(--font-oswald)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

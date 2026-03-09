@@ -85,7 +85,7 @@ export default function BookingForm() {
         date: date ? format(date, "PPP") : "Not selected",
       };
 
-      console.log("Submitting booking data:", bookingData);
+
 
       // Send to API route
       const response = await fetch("/api/booking", {
@@ -96,7 +96,7 @@ export default function BookingForm() {
         body: JSON.stringify(bookingData),
       });
 
-      console.log("API response status:", response.status);
+
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
@@ -107,8 +107,7 @@ export default function BookingForm() {
       }
 
       const result = await response.json();
-      console.log("API success:", result);
-      console.log("Form submitted:", bookingData);
+
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error submitting form:", error);

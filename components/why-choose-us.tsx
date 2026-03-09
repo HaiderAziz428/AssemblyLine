@@ -96,7 +96,7 @@ export default function WhyChooseUs() {
           <div className="inline-block bg-gradient-to-r from-gold-500/20 to-gold-300/20 rounded-full px-4 py-1 backdrop-blur-sm border border-gold-500/20 mb-4">
             <span className="text-gold-300 font-medium">Why Choose Us</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 font-['Impact'] tracking-wide text-white">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 font-oswald tracking-wide text-white">
             THE <span className="text-gold-500">ASSEMBLY LINE</span> ADVANTAGE
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto">

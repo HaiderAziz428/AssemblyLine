@@ -24,8 +24,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useRef, useState, useEffect } from "react";
-import Head from "next/head";
-
+import Image from "next/image";
 export default function Services() {
   const services = [
     {
@@ -203,7 +202,7 @@ export default function Services() {
             <div className="inline-block bg-gradient-to-r from-gold-500/20 to-gold-300/20 rounded-full px-4 py-1 backdrop-blur-sm border border-gold-500/20 mb-4">
               <span className="text-gold-300 font-medium">What We Do Best</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 font-['Impact'] tracking-wide text-white">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 font-oswald tracking-wide text-white">
               OUR <span className="text-gold-500">SERVICES</span>
             </h2>
             <p className="text-zinc-400 max-w-2xl mx-auto">
@@ -253,7 +252,7 @@ export default function Services() {
       <section id="gallery" className="py-20 bg-navy-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 font-['Impact'] tracking-wide text-white">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 font-oswald tracking-wide text-white">
               OUR <span className="text-gold-500">GALLERY</span>
             </h2>
             <p className="text-zinc-400 max-w-2xl mx-auto">
@@ -297,12 +296,13 @@ export default function Services() {
             >
               {gallery.map((item, idx) =>
                 item.type === "image" ? (
-                  <img
+                  <Image
                     key={idx}
                     src={item.src}
                     alt={item.alt}
+                    width={500}
+                    height={350}
                     className="h-72 w-auto rounded-xl border border-gold-500 shadow-lg object-cover flex-shrink-0 first:ml-0 last:mr-0"
-                    loading="lazy"
                   />
                 ) : (
                   <video

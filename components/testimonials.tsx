@@ -76,7 +76,7 @@ export default function Testimonials() {
           <div className="inline-block bg-gradient-to-r from-gold-500/20 to-gold-300/20 rounded-full px-4 py-1 backdrop-blur-sm border border-gold-500/20 mb-4">
             <span className="text-gold-300 font-medium">Customer Reviews</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white font-['Impact'] tracking-wide">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white font-oswald tracking-wide">
             CUSTOMER <span className="text-gold-500">REVIEWS</span>
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto">

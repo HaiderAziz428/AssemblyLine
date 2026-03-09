@@ -39,12 +39,13 @@ export default function Hero() {
           <Wrench className="w-full h-full text-gold-500 animate-pulse " />
         </div>
         {/* Car image for LCP - centered in hero section */}
-        <img
+        <Image
           src="/Car.webp"
           alt="Blue car representing Assembly Line Auto Repair"
-          fetchPriority="high"
-          {...{ fetchpriority: "high" }}
-          className="absolute top-1/2 left-1/2 w-[150vw] max-w-none sm:w-[120vw] md:w-[100vw] md:max-w-6xl -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none select-none"
+          width={1200}
+          height={800}
+          priority
+          className="absolute top-1/2 left-1/2 w-[120vw] sm:w-[100vw] md:w-[90vw] max-w-6xl -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none select-none object-contain"
         />
       </div>
 
@@ -62,7 +63,7 @@ export default function Hero() {
             }`}
           >
             <div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-['Impact'] tracking-wider text-gold-500">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-oswald tracking-wider text-gold-500">
                 <span className="block text-3xl md:text-4xl lg:text-5xl text-white mt-2">
                   AUTO REPAIR
                 </span>

@@ -37,10 +37,10 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold text-gold-500 leading-none font-['Impact']">
+                <span className="text-xl font-bold text-gold-500 leading-none font-oswald">
                   ASSEMBLY LINE
                 </span>
-                <span className="text-sm font-medium text-gold-300 leading-none font-['Impact']">
+                <span className="text-sm font-medium text-gold-300 leading-none font-oswald">
                   AUTO REPAIR
                 </span>
               </div>

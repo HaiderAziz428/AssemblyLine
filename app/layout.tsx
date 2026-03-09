@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
 export const metadata: Metadata = {
   title: {
     default:
@@ -588,12 +591,6 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
 
         {/* Preconnect to external domains for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
         <link rel="preconnect" href="https://www.google.com" />
         <link rel="preconnect" href="https://maps.googleapis.com" />
 
@@ -617,7 +614,9 @@ export default function RootLayout({
         {/* <meta name="facebook-domain-verification" content="your-verification-code" /> */}
         {/* <meta name="google-site-verification" content="your-verification-code" /> */}
       </head>
-      <body>{children}</body>
+      <body className={`${inter.variable} ${oswald.variable} font-sans overflow-x-hidden`}>
+        {children}
+      </body>
     </html>
   );
 }

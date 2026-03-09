@@ -54,10 +54,12 @@ export default function About() {
             <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-gold-500/20 to-gold-300/20 rounded-lg transform -rotate-2"></div>
               <div className="absolute inset-2 rounded-lg transform rotate-1 overflow-hidden">
-                <img
-                  src={aboutPic.src}
+                <Image
+                  src={aboutPic}
                   alt="Auto workshop mechanics working on a car"
-                  className="object-contain rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:scale-105"
+                  className="object-cover rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:scale-105"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </div>
@@ -87,7 +89,7 @@ export default function About() {
             <div className="inline-block bg-gradient-to-r from-gold-500/20 to-gold-300/20 rounded-full px-4 py-1 backdrop-blur-sm border border-gold-500/20 mb-4">
               <span className="text-gold-300 font-medium">Our Story</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-['Impact'] tracking-wide text-white">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-oswald tracking-wide text-white">
               ABOUT <span className="text-gold-500">ASSEMBLY LINE</span>
             </h2>
             <p className="text-zinc-400 mb-6">

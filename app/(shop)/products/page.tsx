@@ -1,28 +1,23 @@
-import type { Metadata } from "next";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import ProductCard from "@/components/product/ProductCard";
 import ProductFilters from "@/components/product/ProductFilters";
-
-export const metadata: Metadata = {
-  title: "All Products",
-  description: "Browse our full range of professional car care, detailing products and accessories.",
-};
 import type { Product } from "@/lib/types";
 
 interface Props {
-  searchParams: { search?: string; category?: string; brand?: string; sort?: string; featured?: string };
+  searchParams: Promise<{ search?: string; category?: string; brand?: string; sort?: string; featured?: string }>;
 }
 
 export async function generateMetadata({ searchParams }: Props) {
-  const { search } = searchParams;
+  const { search } = await searchParams;
   return {
     title: search ? `Search: "${search}"` : "All Products",
+    description: "Browse our full range of professional car care, detailing products and accessories.",
   };
 }
 
 export default async function ProductsPage({ searchParams }: Props) {
+  const { search, category, brand, sort = "newest", featured } = await searchParams;
   const supabase = await createServerSupabaseClient();
-  const { search, category, brand, sort = "newest", featured } = searchParams;
 
   let query = supabase
     .from("products")
@@ -46,7 +41,6 @@ export default async function ProductsPage({ searchParams }: Props) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">
           {search ? `Results for "${search}"` : "All Products"}
@@ -55,7 +49,6 @@ export default async function ProductsPage({ searchParams }: Props) {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
-        {/* Sidebar filters */}
         <aside className="lg:w-60 flex-shrink-0">
           <ProductFilters
             categories={categories ?? []}
@@ -66,7 +59,6 @@ export default async function ProductsPage({ searchParams }: Props) {
           />
         </aside>
 
-        {/* Product grid */}
         <div className="flex-1">
           {(products?.length ?? 0) === 0 ? (
             <div className="flex flex-col items-center justify-center py-24 text-center">

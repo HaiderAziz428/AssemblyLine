@@ -13,7 +13,7 @@ export default async function ShopLayout({ children }: { children: React.ReactNo
   return (
     <div className="min-h-screen flex flex-col">
       <Header categories={categories ?? []} brands={brands ?? []} />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pb-14 md:pb-0">{children}</main>
       <Footer />
     </div>
   );

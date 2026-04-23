@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase";
 import toast from "react-hot-toast";
+import MediaUpload from "./MediaUpload";
 
 interface Props {
   categories: { id: string; name: string }[];
@@ -32,7 +33,7 @@ export default function ProductForm({ categories, brands, product }: Props) {
     brand_id: product?.brand_id ?? "",
     is_featured: product?.is_featured ?? false,
     is_active: product?.is_active ?? true,
-    images: (product?.images ?? []).join("\n"),
+    images: (product?.images ?? []) as string[],
     video_url: product?.video_url ?? "",
   });
 
@@ -40,6 +41,10 @@ export default function ProductForm({ categories, brands, product }: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (form.images.length === 0) {
+      toast.error("Add at least one product image.");
+      return;
+    }
     setLoading(true);
 
     const payload = {
@@ -53,8 +58,8 @@ export default function ProductForm({ categories, brands, product }: Props) {
       brand_id: form.brand_id || null,
       is_featured: form.is_featured,
       is_active: form.is_active,
-      images: form.images.split("\n").map((s: string) => s.trim()).filter(Boolean),
-      video_url: form.video_url.trim() || null,
+      images: form.images,
+      video_url: form.video_url || null,
     };
 
     const { error } = product
@@ -77,42 +82,71 @@ export default function ProductForm({ categories, brands, product }: Props) {
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-1">Product Name *</label>
           <input
-            type="text" required value={form.name}
-            onChange={(e) => { set("name", e.target.value); set("slug", slugify(e.target.value)); }}
+            type="text"
+            required
+            value={form.name}
+            onChange={(e) => {
+              set("name", e.target.value);
+              if (!product) set("slug", slugify(e.target.value));
+            }}
             placeholder="e.g. Carpro Cquartz UK 3.0"
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400"
+            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Slug (URL)</label>
-          <input type="text" value={form.slug} onChange={(e) => set("slug", e.target.value)}
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400 font-mono" />
+          <input
+            type="text"
+            value={form.slug}
+            onChange={(e) => set("slug", e.target.value)}
+            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400 font-mono"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Price (PKR) *</label>
-          <input type="number" min="0" required value={form.price} onChange={(e) => set("price", e.target.value)}
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400" />
+          <input
+            type="number"
+            min="0"
+            required
+            value={form.price}
+            onChange={(e) => set("price", e.target.value)}
+            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Sale Price (PKR)</label>
-          <input type="number" min="0" value={form.sale_price} onChange={(e) => set("sale_price", e.target.value)}
+          <input
+            type="number"
+            min="0"
+            value={form.sale_price}
+            onChange={(e) => set("sale_price", e.target.value)}
             placeholder="Leave empty if no sale"
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400" />
+            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Stock *</label>
-          <input type="number" min="0" required value={form.stock} onChange={(e) => set("stock", e.target.value)}
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400" />
+          <input
+            type="number"
+            min="0"
+            required
+            value={form.stock}
+            onChange={(e) => set("stock", e.target.value)}
+            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-          <select value={form.category_id} onChange={(e) => set("category_id", e.target.value)}
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400">
+          <select
+            value={form.category_id}
+            onChange={(e) => set("category_id", e.target.value)}
+            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400"
+          >
             <option value="">— No category —</option>
             {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
@@ -120,8 +154,11 @@ export default function ProductForm({ categories, brands, product }: Props) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Brand</label>
-          <select value={form.brand_id} onChange={(e) => set("brand_id", e.target.value)}
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400">
+          <select
+            value={form.brand_id}
+            onChange={(e) => set("brand_id", e.target.value)}
+            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400"
+          >
             <option value="">— No brand —</option>
             {brands.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
           </select>
@@ -130,45 +167,57 @@ export default function ProductForm({ categories, brands, product }: Props) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-        <textarea value={form.description} onChange={(e) => set("description", e.target.value)}
-          rows={4} placeholder="Product description..."
-          className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400 resize-none" />
+        <textarea
+          value={form.description}
+          onChange={(e) => set("description", e.target.value)}
+          rows={4}
+          placeholder="Product description..."
+          className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400 resize-none"
+        />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Image URLs <span className="text-gray-400 font-normal">(one per line)</span>
-        </label>
-        <textarea value={form.images} onChange={(e) => set("images", e.target.value)}
-          rows={3} placeholder="https://example.com/image1.jpg"
-          className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400 resize-none font-mono" />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Video URL</label>
-        <input type="url" value={form.video_url} onChange={(e) => set("video_url", e.target.value)}
-          placeholder="https://example.com/video.mp4"
-          className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-yellow-400" />
-      </div>
+      {/* Media uploads */}
+      <MediaUpload
+        images={form.images}
+        video={form.video_url}
+        onImagesChange={(urls) => set("images", urls)}
+        onVideoChange={(url) => set("video_url", url)}
+      />
 
       <div className="flex items-center gap-6">
         <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" checked={form.is_featured} onChange={(e) => set("is_featured", e.target.checked)} className="w-4 h-4 accent-yellow-500" />
+          <input
+            type="checkbox"
+            checked={form.is_featured}
+            onChange={(e) => set("is_featured", e.target.checked)}
+            className="w-4 h-4 accent-yellow-500"
+          />
           <span className="text-sm font-medium text-gray-700">Featured product</span>
         </label>
         <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" checked={form.is_active} onChange={(e) => set("is_active", e.target.checked)} className="w-4 h-4 accent-yellow-500" />
+          <input
+            type="checkbox"
+            checked={form.is_active}
+            onChange={(e) => set("is_active", e.target.checked)}
+            className="w-4 h-4 accent-yellow-500"
+          />
           <span className="text-sm font-medium text-gray-700">Active (visible in store)</span>
         </label>
       </div>
 
       <div className="flex gap-3 pt-2">
-        <button type="button" onClick={() => router.back()}
-          className="px-5 py-2.5 border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="px-5 py-2.5 border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
+        >
           Cancel
         </button>
-        <button type="submit" disabled={loading}
-          className="flex-1 bg-yellow-500 hover:bg-yellow-400 disabled:opacity-60 text-black font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2">
+        <button
+          type="submit"
+          disabled={loading}
+          className="flex-1 bg-yellow-500 hover:bg-yellow-400 disabled:opacity-60 text-black font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
+        >
           {loading && <Loader2 size={16} className="animate-spin" />}
           {loading ? "Saving..." : product ? "Update Product" : "Create Product"}
         </button>

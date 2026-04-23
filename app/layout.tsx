@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
-    default: "AutoShop — Premium Car Care & Detailing Products",
-    template: "%s | AutoShop",
+    default: "Assembly Line — Premium Car Care & Detailing Products",
+    template: "%s | Assembly Line",
   },
   description:
     "Pakistan's top destination for professional car care, detailing products and accessories. Shop Carpro, Gyeon, Sonax and more.",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   ),
   openGraph: {
     type: "website",
-    siteName: "AutoShop",
+    siteName: "Assembly Line",
   },
 };
 
@@ -27,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased bg-white text-gray-900`}>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning className={`${inter.variable} font-sans antialiased bg-white text-gray-900`}>
         {children}
         <Toaster position="top-center" />
       </body>

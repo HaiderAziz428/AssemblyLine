@@ -7,8 +7,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase.from("profiles").select("is_admin").eq("id", user.id).single();
-  if (!profile?.is_admin) redirect("/");
+  // Use security-definer RPC to bypass RLS — direct table query can return
+  // null if the session cookie hasn't propagated auth.uid() in this request.
+  const { data: isAdmin } = await supabase.rpc("is_admin");
+
+  if (!isAdmin) redirect("/");
 
   return (
     <div className="min-h-screen flex bg-gray-50">

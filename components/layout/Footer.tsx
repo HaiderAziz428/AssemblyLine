@@ -90,7 +90,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 pt-6 text-center text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} AutoShop. All rights reserved.
+          &copy; {new Date().getFullYear()} Assembly Line. All rights reserved.
         </div>
       </div>
     </footer>

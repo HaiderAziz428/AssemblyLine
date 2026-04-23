@@ -19,13 +19,32 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) {
       toast.error(error.message);
     } else {
+      // Ensure client session is fully persisted before navigating to server-guarded routes.
+      await supabase.auth.getSession();
+
+      const userId = data.user?.id;
+      let isAdmin = false;
+
+      if (userId) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("is_admin")
+          .eq("id", userId)
+          .maybeSingle();
+
+        isAdmin =
+          profile?.is_admin === true ||
+          data.user?.app_metadata?.is_admin === true ||
+          data.user?.user_metadata?.is_admin === true;
+      }
+
       toast.success("Welcome back!");
-      router.push("/");
+      router.replace(isAdmin ? "/admin" : "/");
       router.refresh();
     }
   };

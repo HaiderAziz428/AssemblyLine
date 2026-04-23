@@ -6,9 +6,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       {/* Simple header */}
       <header className="bg-white border-b border-gray-100 h-14 flex items-center">
         <div className="container mx-auto px-4">
-          <Link href="/" className="font-bold text-xl">
-            <span className="text-black">AUTO</span>
-            <span className="text-yellow-500">SHOP</span>
+          <Link href="/" className="font-bold text-xl tracking-tight">
+            Assembly Line
           </Link>
         </div>
       </header>
@@ -18,7 +17,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </main>
 
       <footer className="py-4 text-center text-sm text-gray-400">
-        &copy; {new Date().getFullYear()} AutoShop
+        &copy; {new Date().getFullYear()} Assembly Line
       </footer>
     </div>
   );

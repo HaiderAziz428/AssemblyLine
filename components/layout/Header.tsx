@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
-  Search, ShoppingCart, User, Heart, ChevronDown, LogOut, Settings, Package,
+  Search, ShoppingCart, User, Heart, ChevronDown, LogOut, Settings, Package, Menu,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase";
 import { useCartStore } from "@/lib/store";
@@ -244,14 +244,23 @@ export default function Header({ categories = [], brands = [] }: HeaderProps) {
 
         {/* ── Mobile main header ── */}
         <div className="md:hidden">
-          <div className="flex items-center justify-between px-4 h-14">
-            {/* Logo */}
-            <Link href="/" className="flex-shrink-0">
+          <div className="relative flex items-center justify-center px-4 h-14">
+            {/* Burger — left */}
+            <button
+              onClick={() => setMenuOpen(true)}
+              className="absolute left-4 p-2 hover:text-yellow-500 transition-colors"
+              aria-label="Open menu"
+            >
+              <Menu size={24} />
+            </button>
+
+            {/* Logo — center */}
+            <Link href="/">
               <Image src="/logo.PNG" alt="Assembly Line Logo" width={100} height={40} className="h-10 w-auto object-contain" priority />
             </Link>
 
             {/* Right icons */}
-            <div className="flex items-center gap-1">
+            <div className="absolute right-4 flex items-center gap-1">
               <button
                 onClick={() => setSearchOpen(true)}
                 className="p-2 hover:text-yellow-500 transition-colors"

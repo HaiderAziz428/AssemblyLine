@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import ProductCard from "@/components/product/ProductCard";
 import ProductFilters from "@/components/product/ProductFilters";
+
+export const metadata: Metadata = {
+  title: "All Products",
+  description: "Browse our full range of professional car care, detailing products and accessories.",
+};
 import type { Product } from "@/lib/types";
 
 interface Props {

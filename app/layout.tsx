@@ -15,9 +15,19 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),
+  icons: {
+    icon: [
+      { url: "/logo.PNG", type: "image/png" },
+    ],
+    apple: [
+      { url: "/logo.PNG", type: "image/png" },
+    ],
+    shortcut: "/logo.PNG",
+  },
   openGraph: {
     type: "website",
     siteName: "Assembly Line",
+    images: [{ url: "/logo.PNG" }],
   },
 };
 

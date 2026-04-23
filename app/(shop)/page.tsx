@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
+
+export const metadata: Metadata = {
+  title: "Assembly Line — Premium Car Care & Detailing Products",
+  description: "Pakistan's top destination for professional car care and detailing. Shop Carpro, Gyeon, Sonax, Meguiar's and more.",
+};
 import HeroBanner from "@/components/home/HeroBanner";
 import BrandsSection from "@/components/home/BrandsSection";
 import CategoriesSection from "@/components/home/CategoriesSection";

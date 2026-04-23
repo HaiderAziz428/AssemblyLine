@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-}
 
 @layer utilities {
   .text-balance {
@@ -104,15 +102,16 @@ body {
   justify-content: center;
 }
 
-/* Responsive adjustments */
-@media (max-width: 558px) {
-  .hero-section {
-    background-image: url("../public/backGround.webp");
-  }
+.services-bg {
+  background-image: url("/Hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-@media (max-width: 422px) {
-  .hero-section {
-    background-image: url("../public/backGround.webp");
+@media (max-width: 640px) {
+  .hero-section,
+  .services-bg {
+    background-attachment: scroll;
   }
 }

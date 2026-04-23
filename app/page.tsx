@@ -10,11 +10,12 @@ import Footer from "@/components/footer";
 import FloatingCta from "@/components/floating-cta";
 
 export const metadata: Metadata = {
-  title: "Assembly Line Car Workshop | Professional Car Services",
+  title: "Assembly Line Car Workshop Multan | Best Car Repair & Auto Service",
   description:
-    "Expert automotive services including electrical, mechanical, AC work, and oil changes. Book your appointment today!",
-  keywords:
-    "car workshop, auto repair, mechanical services, oil change, AC repair, electrical services",
+    "Multan's trusted car workshop since 2020. Expert oil change, AC repair, brake service & electrical repairs at MPS Road, 5 Marla Scheme. Book online!",
+  alternates: {
+    canonical: "https://www.assemblylineworkshop.com/",
+  },
 };
 
 export default function Home() {

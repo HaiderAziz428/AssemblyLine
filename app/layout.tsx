@@ -169,7 +169,7 @@ export const metadata: Metadata = {
     "business-address": "Assembly line 5 marla scheme MPS road, Multan",
     "payment-methods": "Cash, Card, Bank Transfer, Easypaisa, Jazzcash",
     "service-area": "Multan, Punjab, Pakistan",
-    established: "2025",
+    established: "2020",
     license: "Licensed Auto Repair Workshop",
   },
 };
@@ -200,7 +200,7 @@ export default function RootLayout({
     description:
       "Assembly Line Car Workshop is Multan's premier car repair workshop established in 2020. We provide expert automotive services including mechanical repairs, electrical services, AC maintenance, oil changes, brake service, and comprehensive diagnostics. Located at MPS Road, 5 Marla Scheme, Multan.",
     slogan: "Multan's Most Trusted Car Workshop",
-    foundingDate: "2025",
+    foundingDate: "2020",
 
     address: {
       "@type": "PostalAddress",
@@ -238,7 +238,8 @@ export default function RootLayout({
         "@type": "OpeningHoursSpecification",
         dayOfWeek: "Friday",
         opens: "00:00",
-        closes: "00:00",
+        closes: "00:01",
+        description: "Closed on Fridays",
       },
     ],
 
@@ -593,6 +594,10 @@ export default function RootLayout({
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://www.google.com" />
         <link rel="preconnect" href="https://maps.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://elfsightcdn.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
         {/* Additional mobile and PWA meta tags */}
         <meta name="mobile-web-app-capable" content="yes" />

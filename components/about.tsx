@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import aboutPic from "../public/about.jpg"; // Assuming you have an about image
+import aboutPic from "../public/about.jpg";
+
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -95,7 +96,7 @@ export default function About() {
             <p className="text-zinc-400 mb-6">
               Assembly Line Auto Repair is a leading car workshop in Multan,
               offering expert car repair, maintenance, and diagnostics for all
-              makes and models. Since 2025, we have been at the forefront of
+              makes and models. Since 2020, we have been at the forefront of
               automotive repair technology. We combine traditional expertise
               with cutting-edge diagnostic equipment to deliver unparalleled
               service in Multan.

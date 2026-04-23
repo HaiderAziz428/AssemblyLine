@@ -10,7 +10,7 @@ import {
   Award,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import heroPic from "../public/Hero.jpg"; // Assuming you have a hero image
+
 export default function WhyChooseUs() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -72,16 +72,10 @@ export default function WhyChooseUs() {
 
   return (
     <section id="why-choose-us" className="py-20 relative overflow-hidden">
-      {/* 3D background with parallax effect */}
-      <div className="absolute inset-0 bg-black">
-        <div
-          className="absolute inset-0 bg-center bg-cover opacity-30"
-          style={{
-            backgroundImage: `url(${heroPic.src})`,
-            backgroundAttachment: "fixed",
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/80 via-navy-900/90 to-navy-900/80"></div>
+      {/* Background with parallax effect */}
+      <div className="absolute inset-0 bg-black" aria-hidden="true">
+        <div className="absolute inset-0 services-bg opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/80 via-navy-900/90 to-navy-900/80" />
       </div>
 
       {/* Decorative elements */}

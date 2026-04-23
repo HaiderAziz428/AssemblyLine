@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Phone, Calendar, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BUSINESS } from "@/lib/constants";
 
 export default function FloatingCta() {
   const [isVisible, setIsVisible] = useState(false);
@@ -41,7 +42,7 @@ export default function FloatingCta() {
         </Button>
       )}
 
-      <Link href="tel:03224188020">
+      <Link href={`tel:${BUSINESS.phoneRaw}`}>
         <Button
           size="icon"
           className="h-12 w-12 rounded-full bg-green-600 hover:bg-green-700 shadow-lg"

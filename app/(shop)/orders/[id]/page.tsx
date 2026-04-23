@@ -3,23 +3,25 @@ import { notFound } from "next/navigation";
 import { CheckCircle, Package, Truck, Home } from "lucide-react";
 import Link from "next/link";
 
-interface Props { params: { id: string }; searchParams: { confirmed?: string } }
+interface Props { params: Promise<{ id: string }>; searchParams: Promise<{ confirmed?: string }> }
 
 const STATUS_STEPS = ["pending", "confirmed", "shipped", "delivered"] as const;
 const STATUS_ICONS = { pending: Package, confirmed: CheckCircle, shipped: Truck, delivered: Home };
 
 export default async function OrderPage({ params, searchParams }: Props) {
+  const { id } = await params;
+  const { confirmed } = await searchParams;
   const supabase = await createServerSupabaseClient();
   const { data: order } = await supabase
     .from("orders")
     .select("*, order_items(*)")
-    .eq("id", params.id)
+    .eq("id", id)
     .single();
 
   if (!order) notFound();
 
   const stepIdx = STATUS_STEPS.indexOf(order.status as typeof STATUS_STEPS[number]);
-  const isConfirmed = searchParams.confirmed === "1";
+  const isConfirmed = confirmed === "1";
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-2xl">

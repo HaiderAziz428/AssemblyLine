@@ -3,21 +3,23 @@ import { createServerSupabaseClient } from "@/lib/supabase-server";
 import ProductDetail from "@/components/product/ProductDetail";
 import type { Product } from "@/lib/types";
 
-interface Props { params: { slug: string } }
+interface Props { params: Promise<{ slug: string }> }
 
 export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
   const supabase = await createServerSupabaseClient();
-  const { data } = await supabase.from("products").select("name,description").eq("slug", params.slug).single();
+  const { data } = await supabase.from("products").select("name,description").eq("slug", slug).single();
   if (!data) return { title: "Product Not Found" };
   return { title: data.name, description: data.description };
 }
 
 export default async function ProductPage({ params }: Props) {
+  const { slug } = await params;
   const supabase = await createServerSupabaseClient();
   const { data: product } = await supabase
     .from("products")
     .select("*, category:categories(id,name,slug), brand:brands(id,name,slug), reviews(id,rating,comment,created_at,user_id)")
-    .eq("slug", params.slug)
+    .eq("slug", slug)
     .eq("is_active", true)
     .single();
 

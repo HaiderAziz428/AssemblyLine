@@ -66,11 +66,11 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-gray-400">
               <li className="flex items-start gap-2">
                 <Phone size={15} className="mt-0.5 flex-shrink-0 text-yellow-500" />
-                <span>03356630319</span>
+                <span>03224188020</span>
               </li>
               <li className="flex items-start gap-2">
                 <Mail size={15} className="mt-0.5 flex-shrink-0 text-yellow-500" />
-                <span>support@autoshop.pk</span>
+                <span>assemblyline15@gmail.com</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin size={15} className="mt-0.5 flex-shrink-0 text-yellow-500" />

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -8,8 +9,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       {/* Simple header */}
       <header className="bg-white border-b border-gray-100 h-14 flex items-center">
         <div className="container mx-auto px-4">
-          <Link href="/" className="font-bold text-xl tracking-tight">
-            Assembly Line
+          <Link href="/">
+            <Image src="/logo.PNG" alt="Assembly Line" width={110} height={44} className="h-11 w-auto object-contain" priority />
           </Link>
         </div>
       </header>

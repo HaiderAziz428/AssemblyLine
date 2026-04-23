@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
@@ -8,9 +9,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
           {/* Brand */}
           <div>
-            <div className="text-2xl font-bold mb-3">
-              <span className="text-white">AUTO</span>
-              <span className="text-yellow-500">SHOP</span>
+            <div className="mb-3">
+              <Image src="/Car.webp" alt="Assembly Line" width={140} height={56} className="h-14 w-auto object-contain brightness-0 invert" />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
               Pakistan&apos;s trusted source for professional car care, detailing products, and accessories.
